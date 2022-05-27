@@ -33,6 +33,7 @@ public class ReservationService {
 
     public static IRoom getARoom(String roomId){
             return roomsList.get(roomId);
+
     }
 
     public static Reservation reserveARoom(Customer customer, IRoom room, Date checkInDate, Date checkOutDate){
@@ -73,7 +74,7 @@ public class ReservationService {
 
     public static Collection<IRoom> getAllRooms(){
         System.out.println("All room:");
-        System.out.println(roomsList.values());
+        //System.out.println(roomsList.values());
         return roomsList.values();
     }
 }

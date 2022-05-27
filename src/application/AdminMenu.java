@@ -28,7 +28,7 @@ public class AdminMenu {
                 break;
             case "5":
                 System.out.println("Return to Main menu");
-                MainMenu.printMainMenu();
+                MainMenu.startMain();
             default:
                 System.out.println("Please enter a valid input");
         }
@@ -50,6 +50,7 @@ public class AdminMenu {
         for(Customer customer: customers){
             System.out.println(customer);
         }
+        adminMenu();
     }
 
     private static void seeAllRoom(){
@@ -57,10 +58,12 @@ public class AdminMenu {
         for (IRoom room: rooms){
             System.out.println(room);
         }
+        adminMenu();
     }
 
     private static void seeAllReservations(){
         adminResource.displayAllReservation();
+        adminMenu();
     }
 
 
@@ -79,6 +82,7 @@ public class AdminMenu {
         Room room = new Room(roomNumber, roomPrice, roomType);
         AdminResource.addRoom(room);
         System.out.println("Room added");
+        AdminMenu.adminMenu();
         /*        String roomTypeInput = scanner.nextLine();
             switch (roomTypeInput){
                 case"1":

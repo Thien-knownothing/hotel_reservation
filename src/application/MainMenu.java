@@ -46,13 +46,16 @@ public class MainMenu {
         System.out.println("Enter your checkout date yyyy-mm-dd:");
         Date checkOutDate = parseDate(scanner);
 
-        Collection<IRoom> availableRoom = hotelResource.findARoom(checkInDate, checkOutDate);
+        Collection<IRoom> availableRoom = HotelResource.findARoom(checkInDate, checkOutDate);
         if (availableRoom.isEmpty()){
             System.out.println("This room is not available");
         }else{
+            for(IRoom room:availableRoom){
+                System.out.println(room);
+            }
             reserveARoom(scanner,availableRoom,checkInDate,checkOutDate);
         }
-
+            startMain();
         }
 
         private static void reserveARoom(Scanner scanner, Collection<IRoom> rooms, Date checkInDate, Date checkOutDate){
@@ -73,19 +76,20 @@ public class MainMenu {
                     IRoom bookRoom = hotelResource.getRoom(roomID);
                     Reservation reservation = hotelResource.bookARoom(inputEmail, bookRoom, checkInDate,checkOutDate);
                     System.out.println("Your room is reserved");
+                    System.out.println(reservation);
 
                 }else{
                     System.out.println("Your account does not exist");
-                    printMainMenu();
+                    startMain();
                 }
 
             }else{
                 System.out.println("Please create your account");
-                printMainMenu();
+                startMain();
             }
         }else{
             System.out.println("You choose not to reserve a room!");
-            printMainMenu();
+            startMain();
         }
         }
 
@@ -95,12 +99,14 @@ public class MainMenu {
         System.out.println("Enter your email:");
         String email = scanner.nextLine();
         printReservation(hotelResource.getCustomerReservations(email));
+        startMain();
 
     }
     private static void printReservation(Collection<Reservation> reservations){
         for (Reservation reservation: reservations){
             System.out.println(reservation);
         }
+
     }
     private static void createAccount(){
         Scanner scanner = new Scanner(System.in);
@@ -117,7 +123,7 @@ public class MainMenu {
         try{
             hotelResource.createCustomer(accountEmail,accountFirstName,accountLastName);
             System.out.println("Account created");
-            printMainMenu();
+            startMain();
         }catch (IllegalArgumentException exception){
             System.out.println(exception.getLocalizedMessage());
             createAccount();
